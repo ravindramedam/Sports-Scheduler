@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title><%= title %></title>
+    <script>
+        var token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+        
+        function deleteSport(id) {
+            if (!confirm("Are you sure you want to delete this sport?")) {
+                return;
+            }
+    
+            fetch(`/sport/${id}`, {
+                method: "DELETE",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "CSRF-Token": token  // Send CSRF token in headers
+                },
+                body: JSON.stringify({ "_csrf": token }) // CSRF protection
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert("Error: " + data.error);
+                } else {
+                    alert("Sport deleted successfully!");
+                    window.location.href = "/sport"; // Redirect after deletion
+                }
+            })
+            .catch(err => console.error("Delete Error:", err));
+        }
+    </script>
+    
+    <style>
+        body {
+            background: linear-gradient(to right, #71b7e6, #9b59b6);
+            color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+              max-width: 500px;
+              height: auto;
+              background: white;
+              padding: 2px;
+              border-radius: 10px;
+              box-shadow: 0 4px 8px rgba(167, 110, 110, 0.6);
+              text-align: center;
+          }
+        .header-container h1 {
+            background-color: #3f48ca;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            font-size: 2rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            color: #66c2ff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #1ba7e3;
+            color: #66c2ff;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        tr:nth-child(even) {
+            background-color:#1ba7e3;
+        }
+        tr:hover {
+            background-color: #e6ece7;
+        }
+        .footer-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .footer-buttons a {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .footer-buttons a:hover {
+            background-color: rgb(233, 27, 27);
+        }
+        .goback-signout-buttons {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+        }
+        .goback-signout-buttons a {
+            background-color: #fd1c1c;
+            color: rgb(7, 75, 24);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .goback-signout-buttons a:hover {
+            background-color: rgb(176, 47, 47);
+        }
+        .action-buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .edit-button {
+            background-color: #28a745;
+            color: white;
+        }
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+        }
+        .edit-button:hover, .delete-button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header-container">
+            <h1>SPORTS SCHEDULER</h1>
+        </div>
+        <h2 class="section-title"><%= title %></h2>
+        <% if (userRole === 'admin') { %>
+            <div class="action-buttons">
+                <a href="edit/<%= sport.id %>" class="edit-button">Edit</a>
+                <a href="#" onclick="deleteSport(<%= sport.id %>)" class="delete-button">Delete</a>
+            </div>
+        <% } %>
+        <h2 class="section-title">Upcoming Sessions</h2>
+        <%- include('upSessions.ejs') %>
+        <div class="footer-buttons">
+            <a href="sessions/<%= sport.id %>">Create a New Session</a>
+            <a href="/sport/viewPreSessions/<%= sport.id %>">View Previous Sessions</a>
+        </div>
+        <h2 class="section-title">List of Created Sessions:</h2>
+        <% if (allSessionPart.length != 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Session Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i = 0; i < allSessionPart.length; i++) { %>
+                        <tr>
+                            <td><%= allSessionPart[i].sessionName %></td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No sessions are created</p>
+        <% } %>
+    </div>
+    <div class="goback-signout-buttons">
+        <a href="/sport">Go Back</a>
+        <a href="/signout">Sign Out</a>
+    </div>
+</body>
+
+</html>

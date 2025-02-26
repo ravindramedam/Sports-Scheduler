@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>View Reports</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #71b7e6, #9b59b6);
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <% if (typeof include === "function") { %> 
+            <%- include('header.ejs') %>
+        <% } %>
+
+        <h2 class="text-xl font-bold text-blue-600 mb-4 text-center">Get Reports</h2>
+
+        <form action="/viewReports" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <div class="mb-4">
+                <label for="date1" class="block text-gray-700 font-medium">Enter From Date and Time:</label>
+                <input required type="datetime-local" name="date1" class="border border-gray-300 rounded w-full p-2 mt-1">
+            </div>
+
+            <div class="mb-4">
+                <label for="date2" class="block text-gray-700 font-medium">Enter To Date and Time:</label>
+                <input required type="datetime-local" name="date2" class="border border-gray-300 rounded w-full p-2 mt-1">
+            </div>
+
+            <div class="flex justify-center">
+                <button type="submit" class="text-white bg-purple-600 hover:bg-purple-800 font-medium rounded px-5 py-2 shadow-md">
+                    Submit
+                </button>
+            </div>
+        </form>
+
+        <% if (messages) { %>
+            <ul class="mt-4">
+                <% Object.values(messages).forEach(msgArray => { %>
+                    <% msgArray.forEach(msg => { %>
+                        <li class="bg-red-200 text-red-800 my-2 list-none rounded px-4 py-2"><%= msg %></li>
+                    <% }) %>
+                <% }) %>
+            </ul>
+        <% } %>
+
+        <div class="mt-6 flex justify-between">
+            <a href="/sport" class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded px-4 py-2 shadow-md">Go Back</a>
+            <a href="/signout" class="text-white bg-red-600 hover:bg-red-800 font-medium rounded px-4 py-2 shadow-md">Signout</a>
+        </div>
+    </div>
+</body>
+
+</html>

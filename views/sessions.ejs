@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sessions</title>
+</head>
+<body>
+    <h1>Upcoming Sessions</h1>
+    <% if (allUpcoming.length > 0) { %>
+        <ul>
+            <% allUpcoming.forEach(function(session) { %>
+                <li><%= session.sessionName %> - <%= session.date %> at <%= session.time %></li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No upcoming sessions.</p>
+    <% } %>
+    <a href="/">Back to Home</a>
+</body>
+</html>

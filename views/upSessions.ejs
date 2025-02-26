@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .flex-container > div {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            color: #f0f0f0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .flex-container > div:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .flex-container a {
+            color: #66c2ff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .flex-container a:hover {
+            color: #ffffff;
+        }
+
+        .flex-container p {
+            margin: 0;
+            padding: 5px;
+        }
+
+        .fully-booked {
+            color: red;
+            font-weight: bold;
+        }
+
+        .slots-available {
+            color: #66c2ff;
+        }
+
+        .no-sessions {
+            color: #e5f2fa;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        
+        <div class="content-section">
+            <div class="flex-container">
+                <% function formatTime(timeString) { %>
+                    <% const [hourString, minute] = timeString.split(":"); %>
+                    <% const hour = +hourString % 24; %>
+                    <% return (hour % 12 || 12) + ":" + minute + (hour < 12 ? "AM" : "PM"); %>
+                <% } %>
+                <% if (allUpcoming.length != 0) { %>
+                    <% for (var i = 0; i < allUpcoming.length; i++) { %>
+                        <div>
+                            <a href="partSession/<%= allUpcoming[i].id %>">
+                                <p><%= (new Date(allUpcoming[i].date)).toDateString() %></p>
+                                <p><%= formatTime(allUpcoming[i].time) %></p>
+                                <% if (allUpcoming[i].playersNeeded === 0) { %>
+                                    <p class="fully-booked">Fully Booked</p>
+                                <% } else { %>
+                                    <p class="slots-available"><%= allUpcoming[i].playersNeeded %> slots available</p>
+                                <% } %>
+                            </a>
+                        </div>
+                    <% } %>
+                <% } else { %>
+                    <p class="no-sessions">There are no upcoming sessions</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

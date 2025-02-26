@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <title><%= title %></title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+        body {
+            background:
+                url('https://wallpaperaccess.com/full/5004699.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Open Sans', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center horizontally */
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Header at top */
+        header {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #006bdd;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        h1 span {
+            color: #ffcc00;
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            color: #ffcc00;
+            text-shadow: 1px 1px 2px #000000;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #9affd8;
+            text-shadow: 1px 1px 5px rgb(0, 157, 255);
+        }
+
+        /* Center the login form */
+        .container {
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px #00ff99;
+            max-width: 400px;
+            position: absolute;
+            top: 50%; /* Position in the middle */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Perfect centering */
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border: 1px solid #00ff99;
+            box-shadow: 0 0 10px #00ff99;
+        }
+
+        button {
+            background-color: #0055ff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background-color: #0033cc;
+        }
+
+        a {
+            color: #fff242;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            background-color: #ffcccc;
+            color: #990000;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .additional-links {
+            margin-top: 15px;
+        }
+
+        .additional-links a {
+            color: #0099ff;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .additional-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header at the top -->
+    <header>
+        <h1><span>S</span>PORTS SHEDULER</h1>
+        <div class="tagline">Elevate your game with ease!</div>
+    </header>
+
+    <!-- Centered Login Container -->
+    <div class="container">
+        <h2>Login to Your Account</h2>
+        <form action="/session" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input required type="email" name="email" placeholder="Email"><br>
+            <input required type="password" name="password" placeholder="Password"><br>
+            <button type="submit">Sign In</button>
+        </form>
+        <% if (messages && messages.error && messages.error.length > 0) { %>
+            <% for (var i = 0; i < messages.error.length; i++) { %>
+                <div class="error"><%= messages.error[i] %></div>
+            <% } %>
+        <% } %>
+        <div class="additional-links">
+            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+            <p><a href="/">Home</a></p>
+        </div>
+    </div>
+</body>
+
+</html>

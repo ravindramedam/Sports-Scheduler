@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <title><%= title %></title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+        body {
+            background:
+                url('http://getwallpapers.com/wallpaper/full/4/b/f/373947.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Open Sans', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        header {
+            text-align: left;
+            width: 100%;
+            margin-bottom: 20px;
+            margin-left: 400px;
+            margin-right: 0px;
+            padding-left: 200px; /* Slight right shift */
+        }
+
+        h1 {
+            background-color: #3483d8;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            
+            margin-right: 0px;
+            border-radius: 5px;
+            display: inline-block;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        h1 span {
+            color: #ffcc00;
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            color: #ffcc00;
+            margin-bottom: 10px;
+            padding-right: 200px;
+            margin-right: 200px;
+            text-shadow: 1px 1px 2px #000000;
+        }
+
+        /* Centered content and shifted slightly right */
+        main {
+            display: flex;
+            flex-direction: column; /* Changed from row to column */
+            align-items: center;
+            width: 50%; /* Adjust width */
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 2px; /* Slight right shift */
+        }
+
+        .signup-container {
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 30px;
+            margin-right: 500px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px #00ff99;
+            width: 100%;
+        }
+
+        .info-container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-right: 500px;
+            box-shadow: 0px 0px 15px #ffffff;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px; /* Added margin to separate from signup-container */
+        }
+
+        h2 {
+            color: #9affd8;
+            text-shadow: 1px 1px 5px rgb(17, 19, 19);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            outline: none;
+            border: 1px solid #00ff99;
+            box-shadow: 0 0 10px #00ff99;
+        }
+
+        .options option {
+            background-color: #ddd;
+            color: #262d38;
+        }
+
+        button {
+            background-color: #9e0500;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background-color: #cc0404;
+        }
+
+        a {
+            color: #fff242;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            background-color: #ffcccc;
+            color: #990000;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                width: 90%; /* Adjust width for small screens */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1><span>S</span>PORTS SCHEDULER</h1>
+        <div class="tagline">Elevate your game with ease!</div>
+    </header>
+
+    <main>
+        <!-- Signup form container -->
+        <div class="signup-container">
+            <h2>Signup as a new user</h2>
+            <form action="/users" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input required type="text" name="firstName" placeholder="First Name"><br>
+                <input required type="text" name="lastName" placeholder="Last Name"><br>
+                <input required type="email" name="email" placeholder="Email"><br>
+                <select required name="role" class="options">
+                    <option value="" disabled selected hidden>Choose a role</option>
+                    <option value="player">Player</option>
+                    <option value="admin">Admin</option>
+                </select><br>
+                <input required type="password" name="password" placeholder="Password"><br>
+                <button type="submit">Sign Up</button>
+            </form>
+            <% if (messages && messages.error && messages.error.length > 0) { %>
+                <% for (var i = 0; i < messages.error.length; i++) { %>
+                    <div class="error"><%= messages.error[i] %></div>
+                <% } %>
+            <% } %>
+        </div>
+
+        <!-- Info container (Moved below signup-container) -->
+        <div class="info-container">
+            <h2>New to Sports?</h2>
+            <p>Sign up for a new account and start scheduling your sports activities effortlessly.</p>
+        </div>
+    </main>
+</body>
+
+</html>

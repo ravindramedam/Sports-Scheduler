@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Create Sport</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-grey-100" style="background-color: rgb(4, 24, 66);">
+    <div class="grid grid-cols-6 gap-4 p-4">
+        <div class="col-start-2 col-span-4 bg-white shadow-lg rounded-lg p-6">
+            <%- include('header.ejs') %>
+            
+            <h2 class="text-center text-2xl font-bold text-blue-600 mb-6">Create a New Sport</h2>
+            <form action="/sport" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="flex flex-col gap-4 mb-4">
+                    <input required type="text" name="title" placeholder="Name of a Sport"
+                        class="border border-gray-300 rounded p-3 text-gray-800 w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <button type="submit"
+                        class="bg-blue-500 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition-colors">Add</button>
+                </div>
+            </form>
+            <div>
+                <h2 class="text-xl font-semibold text-blue-600 mb-4">List of Created Sports</h2>
+                <% if (allSportsPart.length != 0) { %>
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr>
+                                <th class="py-3 px-4 bg-blue-500 text-white text-left">Sport Title</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (var i = 0; i < allSportsPart.length; i++) { %>
+                                <tr class="border-b">
+                                    <td class="py-3 px-4 text-gray-800">
+                                        <%= allSportsPart[i].title %>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p class="text-center text-gray-600 mt-4">No sport created</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-between items-center mb-4">
+        <b class="text-white bg-red-500 hover:bg-blue-700 font-medium rounded px-4 py-2"><a href="/sport">Go Back</a></b>
+        <b class="text-white bg-red-500 hover:bg-blue-700 font-medium rounded px-4 py-2"><a href="/signout">Sign Out</a></b>
+    </div>
+</body>
+
+</html>

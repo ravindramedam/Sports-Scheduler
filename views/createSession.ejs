@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-r from-blue-800 to-blue-500 text-white font-sans">
+    <div class="grid grid-cols-6 gap-4 p-6">
+        <div class="col-start-3 col-span-2 bg-gray-800 rounded-lg p-6 shadow-lg">
+            <%- include('header.ejs') %>
+            
+            <h2 class="text-xl font-semibold mb-4" style="background-color: rgb(0, 115, 255); padding: 5px; box-sizing: border-box; border-radius: 5px;">Create a New Session</h2>
+            <form action="/createSession/<%= sport.id %>" method="post" class="space-y-4">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div>
+                    <label for="sessionName" class="block mb-1 font-medium">Name of <%= sport.title %> Session:</label>
+                    <input required type="text" name="sessionName" class="border border-gray-300 text-gray-900 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="date" class="block mb-1 font-medium">Enter Date:</label>
+                    <input required type="date" name="date" class="border border-gray-300 text-gray-900 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="time" class="block mb-1 font-medium">Enter Time:</label>
+                    <input required type="time" name="time" class="border border-gray-300 text-gray-900 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="venue" class="block mb-1 font-medium">Enter Venue:</label>
+                    <input required type="text" name="venue" class="border border-gray-300 text-gray-900 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="names" class="block mb-1 font-medium">Who all will be joining you in the session? (Comma Separated)</label>
+                    <input required type="text" name="names" class="border border-gray-300 text-gray-900 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="playersNeeded" class="block mb-1 font-medium">How many more players do you need?</label>
+                    <input required type="number" name="playersNeeded" class="border border-gray-300 text-gray-900 rounded p-2 w-full">
+                </div>
+                <button type="submit" class="w-full text-white bg-purple-600 hover:bg-purple-800 font-medium rounded px-4 py-2">Submit</button>
+            </form>
+            <% if (messages && messages.error && messages.error.length > 0) { %>
+                <% for (var i = 0; i < messages.error.length; i++) { %>
+                    <li class="bg-red-300 my-3 list-none rounded px-4 py-2"> <%= messages.error[i] %></li>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+    <div class="mb-4 flex justify-between items-center">
+        <a href="/sport/<%= sport.id %>" class="text-white bg-red-600 hover:bg-blue-800 font-medium rounded px-4 py-2">Go Back</a>
+        <a href="/signout" class="text-white bg-red-600 hover:bg-blue-800 font-medium rounded px-4 py-2">Sign Out</a>
+    </div>
+</body>
+
+</html>
