@@ -30,3 +30,7 @@ To run this application locally, follow these steps:
    ```bash
    git clone https://github.com/ravindramedam/Sports-Scheduler.git
    cd Sports-Scheduler
+
+2. **My project live demo:**
+   ```bash
+   https://sports-scheduler-ravi.onrender.com/
