@@ -12,6 +12,39 @@ This is my capstone project of Full Stack Web Development, as part of it, I deve
   - Create and join sports sessions.
   - View upcoming and past sessions.
 
+## 🛠️ Technology Stack
+
+### 🌐 Frontend
+- **EJS** – Templating engine used to render dynamic HTML pages.
+
+### 🔧 Backend
+- **Node.js** – JavaScript runtime environment.  
+- **Express.js** – Web framework for Node.js.
+
+### 🗄️ Database
+- **PostgreSQL** – Relational database management system.  
+- **Sequelize** – Promise-based ORM for Node.js and PostgreSQL.
+
+### 🔐 Authentication
+- **Passport.js** – Middleware for authentication.  
+- **passport-local** – Strategy for username/password authentication.  
+- **bcrypt** – Library for hashing passwords securely.
+
+### 📦 Other Dependencies
+- **express-session** – Session management.  
+- **connect-flash** – Flash messages.  
+- **cookie-parser** – Parse cookies.  
+- **tiny-csrf** – CSRF protection middleware.  
+- **connect-ensure-login** – Middleware to ensure user is logged in.
+
+### 🧪 Testing & Dev Tools
+- **Jest** – JavaScript testing framework.  
+- **Supertest** – HTTP assertions for testing Express apps.  
+- **Cheerio** – jQuery-like HTML parsing for testing views.  
+- **Nodemon** – Automatically restarts the server during development.  
+- **ESLint & Prettier** – Linting and code formatting tools.  
+- **Husky & lint-staged** – Git hooks to enforce code quality.
+
 ## Screenshots
 
 ![Index of Sports Scheduler](https://drive.google.com/uc?export=view&id=1FIDOh4S0zYX_aA6G2YKSuP_l03pgyZZn)
