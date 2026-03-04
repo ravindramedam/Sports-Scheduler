@@ -47,6 +47,7 @@ This is my capstone project of Full Stack Web Development, as part of it, I deve
 
 ## Screenshots
 
+
 ![Index of Sports Scheduler](https://drive.google.com/uc?export=view&id=1FIDOh4S0zYX_aA6G2YKSuP_l03pgyZZn)
 ![Signup Page](https://drive.google.com/uc?export=view&id=10XgAL6sbVEy9aU1dqjTlQ5uXcEY0Vv9D)
 ![Homepage of Sports Scheduler](https://drive.google.com/uc?export=view&id=1v2u8ir0ZlZ2RMtUtDNshqL0Q0ohP-UQa)
