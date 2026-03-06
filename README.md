@@ -185,7 +185,7 @@ Through this project, I gained practical experience in:
 **Medam Venkata Ravindra Reddy**
 
 📧 Email: ravindramedam321@gmail.com  
-🔗 LinkedIn: https://www.linkedin.com/in/ravindramedam
+🔗 LinkedIn: https://www.linkedin.com/in/ravindra-medam
 
 ---
 
